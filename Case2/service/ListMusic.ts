@@ -2,13 +2,14 @@ import {Manager} from "./Manager";
 import {Music} from "../model/Music";
 
 export class ListMusic implements Manager<Music> {
-    private _idAlbum:number
+    _idAlbum: number
     listMusic: Music[] = [];
     quantityOfMusic: number = 0;
     nameAlbum: string;
+
     constructor(idAlbum: number, nameAlbum: string) {
         this.nameAlbum = nameAlbum
-        this._idAlbum= idAlbum
+        this._idAlbum = idAlbum
     }
 
     create(t: Music) {
@@ -26,7 +27,7 @@ export class ListMusic implements Manager<Music> {
 
 
     findByName(name: string) {
-        console.log(this.listMusic.filter(item => item.nameOfMusic.includes(name)))
+        return this.listMusic.filter(item => item.nameOfMusic.includes(name))
     }
 
     read() {

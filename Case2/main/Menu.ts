@@ -7,7 +7,7 @@ import {ManageRegister} from "../service/ManageRegister";
 let input = require('readline-sync');
 let manageRegister: ManageRegister = new ManageRegister();
 let manageAlbum: ManageAlbum = new ManageAlbum();
-let manageMusic: ListMusic = new ListMusic(0, '0')
+let manageMusic: ListMusic = new ListMusic(0, '')
 
 function menuSignUp() {
     let choice: number;
@@ -19,7 +19,7 @@ function menuSignUp() {
     choice = +input.question('Enter your selection : ')
     switch (choice) {
         case 1:
-            menuLogin();
+            menuLogIn();
             break;
         case 2:
             signUp();
@@ -27,7 +27,7 @@ function menuSignUp() {
     }
 }
 
-function menuLogin() {
+function menuLogIn() {
     let choice: number;
     do {
         let menu = `
@@ -77,22 +77,22 @@ function registerAccount() {
 }
 
 function inputInfo() {
-    let userNameLogin = "";
-    let passwordLogin = "";
+    let userNameLogIn = "";
+    let passwordLogIn = "";
     do {
-        userNameLogin = input.question('Enter your name login : ');
-        passwordLogin = input.question('Enter password login : ');
-        manageRegister.signIn(userNameLogin, passwordLogin);
-        if (manageRegister.signIn(userNameLogin, passwordLogin) == true) {
+        userNameLogIn = input.question('Enter your name login : ');
+        passwordLogIn = input.question('Enter password login : ');
+        manageRegister.signIn(userNameLogIn, passwordLogIn);
+        if (manageRegister.signIn(userNameLogIn, passwordLogIn) == true) {
             mainMenu();
-        } else if (userNameLogin == '') {
-            if (passwordLogin == '') {
+        } else if (userNameLogIn == '') {
+            if (passwordLogIn == '') {
                 console.log('User name and password cannot be blank !!!')
             }
         } else console.log('Account name or password incorrect !!!')
 
-        menuLogin();
-    } while (!manageRegister.signIn(userNameLogin, passwordLogin));
+        menuLogIn();
+    } while (!manageRegister.signIn(userNameLogIn, passwordLogIn));
 }
 
 function listMusic() {
@@ -174,24 +174,25 @@ function addMusic() {
     let music = new Music(nameMusic, singer, id);
     if (music.nameOfMusic == '') {
         if (music.singer == '') {
-            console.log('Name music and singer cannot be blank !!! ')
-        }
-    } else manageMusic.create(music);
+            console.log('Name music and singer cannot be blank !!! ')}
+        } else manageMusic.create(music);
     listMusic()
 }
 
 function findNameMusic() {
-    let name = input.question('Enter name song you want to find :')
-    if (!name) {
-        console.log('Not found !!!')
-    } else {
+    let name = input.question('Enter name song you want to find :');
+    if (name == '') {
+        console.log('Please enter name !!!')
+    }  else {
         manageMusic.findByName(name)
     }
-
 }
 
 function findIndexMusic() {
-    let index = +input.question('Enter song number : ')
+    let index = +input.question('Enter song number : ');
+    if (index == null) {
+        console.log('Please enter index of music : ')
+    }
     console.log(manageMusic.findByIndex(index))
 }
 
@@ -202,22 +203,27 @@ function updateMusic() { //check l
     let singer = input.question('Enter name singer : ');
     let id = +input.question('Enter id of song  : ')
     let newMusic: Music = new Music(nameSong, singer, id);
-    for (let i = 0; i < manageMusic.listMusic.length; i++) {
-        if (manageMusic.listMusic[i].nameOfMusic == newMusic.nameOfMusic) {
-            if (manageMusic.listMusic[i].singer == newMusic.singer) {
-                console.log('Name music or singer name are duplicated !!!')
-            } else if (newMusic.nameOfMusic === '') {
-                if (newMusic.singer === '') {
-                    console.log('Name music and singer cannot be blank !!!')
+
+    if (manageAlbum.findById(id)!=null) {
+        for (let i = 0; i < manageMusic.listMusic.length; i++) {
+            if (manageMusic.listMusic[i].nameOfMusic == newMusic.nameOfMusic) {
+                if (manageMusic.listMusic[i].singer == newMusic.singer) {
+                    console.log('The song already exist!!!')
+
+                } else if (newMusic.nameOfMusic == '') {
+                    if (newMusic.singer == '') {
+                        console.log('Name music and singer cannot be blank !!!')
+                    }
                 }
-            }
-        } else manageMusic.update(index, newMusic);
-    }
+            } else manageMusic.update(index, newMusic);
+        }
+
+    }else console.log('Not found album !!!')
     listMusic();
 }
 
 function showListMusic() {
-    console.log(manageMusic.read())
+    manageMusic.read()
 }
 
 function deleteMusic() {
@@ -266,11 +272,10 @@ function inputIndex() {
 }
 
 function addMusicInAlbum() {
-    console.log(manageAlbum.read());
-    console.log(manageMusic.read());
+
     let selectAlbum = +input.question('Enter id album : ');
     let selectMusic = +input.question('Enter id music : ');
-    let album:ListMusic = manageAlbum.findById(selectAlbum);
+    let album: ListMusic = manageAlbum.findById(selectAlbum);
     let music = manageMusic.findById(selectMusic);
     album.create(music)
     console.log(album)
@@ -402,7 +407,8 @@ function listAlbum() {
 function showMusicInAlbum() {
     let choice: number;
     let id = +input.question('Enter id of album : ')
-    if (id > 0) {
+
+    if (manageAlbum.findById(id) != null) {
         do {
             let menu = `
         1.Enter id of album : 
@@ -412,17 +418,18 @@ function showMusicInAlbum() {
             switch (choice) {
                 case 1:
                     for (let i = 0; i < manageAlbum.listAlbum.length; i++) {
-                        if(manageAlbum.listAlbum[i].idAlbum==id) {
+                        if (manageAlbum.listAlbum[i].idAlbum === id) {
                             console.log(manageAlbum.listAlbum[i])
                         }
                     }
+                    listAlbum();
                     break;
                 case 0:
                     myAlbums();
                     break;
             }
         } while (choice != 0)
-    }
+    } else console.log('Not found!!!')
 }
 
 function showAllAlbum() {
@@ -431,7 +438,9 @@ function showAllAlbum() {
 
 function searchNameAlbum() {
     let nameAlbum = input.question('Enter name of album : ')
-    manageAlbum.findByName(nameAlbum);
+    if (nameAlbum==''){
+        console.log('Please enter name of album :')
+    }else  manageAlbum.findByName(nameAlbum);
     listAlbum();
 }
 

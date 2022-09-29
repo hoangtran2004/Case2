@@ -14,7 +14,7 @@ var ManageAlbum = /** @class */ (function () {
         return this.listAlbum.splice(index - 1, 1);
     };
     ManageAlbum.prototype.findByIndex = function (index) {
-        return this.listAlbum[index];
+        return this.listAlbum[index - 1];
     };
     ManageAlbum.prototype.findByName = function (name) {
         console.log(this.listAlbum.filter(function (item) { return item.nameAlbum.includes(name); }));

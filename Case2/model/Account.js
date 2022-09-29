@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Account = void 0;
 var Account = /** @class */ (function () {
-    function Account(UserName, Password) {
-        this._userName = UserName;
-        this._password = Password;
+    function Account(userName, password) {
+        this._userName = userName;
+        this._password = password;
     }
     Object.defineProperty(Account.prototype, "userName", {
         get: function () {

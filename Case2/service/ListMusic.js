@@ -19,7 +19,7 @@ var ListMusic = /** @class */ (function () {
         return this.listMusic[index - 1];
     };
     ListMusic.prototype.findByName = function (name) {
-        console.log(this.listMusic.filter(function (item) { return item.nameOfMusic.includes(name); }));
+        return this.listMusic.filter(function (item) { return item.nameOfMusic.includes(name); });
     };
     ListMusic.prototype.read = function () {
         for (var i = 0; i < this.listMusic.length; i++) {

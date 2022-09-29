@@ -1,9 +1,9 @@
 export class Account {
     private _userName:string;
     private _password:string;
-    constructor(UserName: string, Password: string) {
-        this._userName = UserName;
-        this._password = Password;
+    constructor(userName: string, password: string) {
+        this._userName = userName;
+        this._password = password;
     }
 
     get userName(): string {

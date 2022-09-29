@@ -1,13 +1,13 @@
 export class Music {
-    private _nameOfMusic: string;
-    private _singer: string;
-    private _iD: number;
+    _nameOfMusic: string;
+     _singer: string;
+     _iD: number;
 
 
-    constructor(NameOfMusic: string, Singer: string, ID: number) {
-        this._nameOfMusic = NameOfMusic;
-        this._singer = Singer;
-        this._iD = ID;
+    constructor(nameOfMusic: string, singer: string, iD: number) {
+        this._nameOfMusic = nameOfMusic;
+        this._singer = singer;
+        this._iD = iD;
     }
 
     get nameOfMusic(): string {

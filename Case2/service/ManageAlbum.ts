@@ -16,7 +16,7 @@ export class ManageAlbum implements Manager<ListMusic> {
     }
 
     findByIndex(index: number): ListMusic {
-        return this.listAlbum[index];
+        return this.listAlbum[index-1];
     }
 
     findByName(name: string) {
