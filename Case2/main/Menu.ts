@@ -155,10 +155,10 @@ function mainMenu() {
                 listMusic();
                 break;
             case 2:
-                myAlbums();
+                manageMyAlbums();
                 break;
             case 3:
-                listAlbum();
+                manageListAlbum();
                 break;
             case 0:
                 menuSignUp();
@@ -248,7 +248,7 @@ function deleteMusic() {
 
 function inputIndex() {
     let choice: number;
-    let index = +input.question('Enter index of music : ')
+    let index = +input.question('Enter id of music : ')
     let menu = `Do you want to delete this song ?
     1.Yes
     2.No`
@@ -281,7 +281,7 @@ function addMusicInAlbum() {
     console.log(album)
 }
 
-function myAlbums() {
+function manageMyAlbums() {
     let choice: number;
     do {
         let menu = `
@@ -315,7 +315,6 @@ function myAlbums() {
 
 }
 
-
 function createNewAlbum() {
     let nameAlbum = input.question('Enter name of album : ');
     let id = +input.question('Enter ID of album : ')
@@ -338,7 +337,7 @@ function deleteAlbum() {
                 inputIndexOfAlbum();
                 break;
             case 2:
-                myAlbums();
+                manageMyAlbums();
                 break;
         }
     } while (choice != 0)
@@ -346,7 +345,7 @@ function deleteAlbum() {
 
 function inputIndexOfAlbum() {
     let choice: number;
-    let index = +input.question('Enter index of album : ')
+    let index = +input.question('Enter id of album : ')
     let menu = `Do you want to delete this album ?
     1.Yes
     2.No`
@@ -357,7 +356,7 @@ function inputIndexOfAlbum() {
             switch (choice) {
                 case 1:
                     manageAlbum.deleteByIndex(index);
-                    myAlbums();
+                    manageMyAlbums();
                     break;
                 case 2:
                     deleteAlbum();
@@ -381,7 +380,7 @@ function updateAlbum() {
     }
 }
 
-function listAlbum() {
+function manageListAlbum() {
     let choice: number;
     do {
         let menu = `
@@ -398,7 +397,7 @@ function listAlbum() {
                 searchNameAlbum();
                 break;
             case 0:
-                myAlbums();
+                manageMyAlbums();
                 break;
         }
     } while (choice != 0)
@@ -422,10 +421,10 @@ function showMusicInAlbum() {
                             console.log(manageAlbum.listAlbum[i])
                         }
                     }
-                    listAlbum();
+                    manageListAlbum();
                     break;
                 case 0:
-                    myAlbums();
+                    manageMyAlbums();
                     break;
             }
         } while (choice != 0)
@@ -441,7 +440,7 @@ function searchNameAlbum() {
     if (nameAlbum==''){
         console.log('Please enter name of album :')
     }else  manageAlbum.findByName(nameAlbum);
-    listAlbum();
+    manageListAlbum();
 }
 
 menuSignUp();

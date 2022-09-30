@@ -162,9 +162,6 @@ function findNameMusic() {
     if (name == '') {
         console.log('Please enter name !!!');
     }
-    else if (!name) {
-        console.log('Not found');
-    }
     else {
         manageMusic.findByName(name);
     }
@@ -245,8 +242,6 @@ function inputIndex() {
     }
 }
 function addMusicInAlbum() {
-    console.log(manageAlbum.read());
-    console.log(manageMusic.read());
     var selectAlbum = +input.question('Enter id album : ');
     var selectMusic = +input.question('Enter id music : ');
     var album = manageAlbum.findById(selectAlbum);

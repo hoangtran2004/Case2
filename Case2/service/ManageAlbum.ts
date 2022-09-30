@@ -1,6 +1,5 @@
 import {Manager} from "./Manager";
 import {ListMusic} from "./ListMusic";
-import {Music} from "../model/Music";
 
 export class ManageAlbum implements Manager<ListMusic> {
     quantityOfAlbum: number = 0;
